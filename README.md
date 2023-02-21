@@ -6,21 +6,30 @@
 
 3. 代码生成的结果文件在 `build/out` 中，对于螺旋桨的情况，结果文件有两个文件夹分别为 `build/out/mask` 和 `build/out/test` ，先 `cd` 到 `build/out/mask` 文件夹内，接着执行 `zip -q -r ../mask.zip ./` 会在上层文件夹 `build/out` 内生成一个 `mask.zip` 文件，这个文件直接发给老板， `build/out/test` 文件夹中存放的程序输出的散点图，可以用 `tecplot` 打开，文件命名的格式为 `test_{theta}` ，即每一个旋转角度生成一个 `test` 文件。对于汽车的情况，结果文件为 `build/out/mask` 文件夹以及一个 `build/out/test.plt` 文件，操作同上。
 
-4. 通过调整 `src/rotate_rc.cpp` 文件中第68和69行
+4. 项目使用 `cmake` 和 `vcpkg` 构建，这里使用 `cmake-presets` 来构建
+```shell
+cd build
+cmake -S .. --preset=release
+ninja
+cd bin
+./rotate_rc
+```
+
+5. 通过调整 `src/rotate_rc.cpp` 文件中第68和69行
 ```cpp
 constexpr ReadMode kReadMode = ReadMode::kText;
 constexpr ReadMode kReadMode = ReadMode::kBinary;
 ```
 可以修改读入的 `X_ii` 文件格式， `ReadMode::kText` 对应文本文件， `ReadMode::kBinary` 对应二进制文件。
 
-5. 通过调整 `src/rotate_rc.cpp` 文件中第71和72行
+6. 通过调整 `src/rotate_rc.cpp` 文件中第71和72行
 ```cpp
 rayCasting(kReadMode, file);
 rotateRC(kReadMode, file);
 ```
 可以控制程序是计算螺旋桨（旋转）还是汽车（不旋转）的射线相交。
 
-6. `src/rotate_rc.cpp` 文件中的第 11-13 行
+7. `src/rotate_rc.cpp` 文件中的第 11-13 行
 ```cpp
 file.grid_copy_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/body.dat");
 file.grid_rotate_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/lxj1.dat");
@@ -28,13 +37,13 @@ file.grid_rotate_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/lxj2.dat")
 ```
 分别表示了 `body.dat` 是不需要旋转的，而 `lxj1.dat` 和 `lxj2.dat` 是需要旋转的。
 
-7. 通过调整 `src/rotate_rc.cpp` 文件中第15行
+8. 通过调整 `src/rotate_rc.cpp` 文件中第15行
 ```cpp
 constexpr int kThetaDifference = 1;
 ```
 可以调整旋转的角度间隔，这里设置为 1 度。
 
-8. `src/rotate_rc.cpp` 文件中的第 19-25 行
+9. `src/rotate_rc.cpp` 文件中的第 19-25 行
 ```cpp
 {
 std::unique_ptr<Eigen::Vector3d> point1 = std::make_unique<Eigen::Vector3d>(
