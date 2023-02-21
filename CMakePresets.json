@@ -1,0 +1,40 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 1
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "displayName": "clang",
+            "description": "Using compilers: CXX = /usr/bin/clang++",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_CXX_COMPILER": "/usr/bin/clang++"
+            }
+        },
+        {
+            "name": "debug",
+            "displayName": "debug",
+            "inherits":[
+                "base"
+            ],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE":"Debug"
+            }
+        },
+        {
+            "name": "release",
+            "displayName": "release",
+            "inherits":[
+                "base"
+            ],
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE":"Release"
+            }
+        }
+    ]
+}

@@ -1,0 +1,20 @@
+{
+    // C++
+    "C_Cpp.intelliSenseEngine": "disabled",
+
+    // clangd
+    "clangd.arguments": [
+        "--clang-tidy",
+        "--all-scopes-completion",
+        "--completion-style=detailed",
+        "--enable-config",
+        "--function-arg-placeholders",
+        "--header-insertion=never",
+        "--pch-storage=memory",
+        "--j=4",
+        "--background-index"
+    ],
+    "[c, cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+}
