@@ -1,6 +1,7 @@
 #include "core/solve.h"
 
 void rayCasting(const ReadMode read_mode, File& file) {
+  makeMaskDir(file);
   const auto x_ii_num = static_cast<Index>(
       std::distance(std::filesystem::directory_iterator{file.x_ii_dir_}, std::filesystem::directory_iterator{}));
   calMask(x_ii_num, file, read_mode, MaskMode::kBool);
@@ -31,6 +32,7 @@ void rotateRC(const ReadMode read_mode, File& file) {
     rotateGrid(kThetaDifference, file.grid_rotate_file_vec_[1], file, std::move(point1), std::move(point2));
   }
   // ---------------------------------------------------------------------------
+  makeMaskDir(file);
   const auto x_ii_num = static_cast<Index>(
       std::distance(std::filesystem::directory_iterator{file.x_ii_dir_}, std::filesystem::directory_iterator{}));
   for (Index i = 0; const auto& grid_input_dir : file.grid_rotate_output_dir_vec_) {
@@ -54,22 +56,12 @@ int main(int argc, char* argv[]) {
   file.test_output_dir_ = file.root_ / "build/out/test";
   file.test_output_file_ = file.root_ / "build/out/test.plt";
 
-  try {
-    if (std::filesystem::exists(file.output_dir_)) {
-      std::cout << fmt::format("Remove directory: {}.", file.output_dir_.string()) << std::endl;
-      std::filesystem::remove_all(file.output_dir_);
-    }
-    std::filesystem::create_directory(file.output_dir_);
-  } catch (const std::filesystem::filesystem_error& exception) {
-    std::cerr << fmt::format("Explanatory string: {}.", exception.what()) << std::endl;
-    std::exit(EXIT_FAILURE);
-  }
-
   constexpr ReadMode kReadMode = ReadMode::kText;
   // constexpr ReadMode kReadMode = ReadMode::kBinary;
 
-  // rayCasting(kReadMode, file);
-  rotateRC(kReadMode, file);
+  // scaleGrid(1e-3, file);
+  rayCasting(kReadMode, file);
+  // rotateRC(kReadMode, file);
 
   return EXIT_SUCCESS;
 }

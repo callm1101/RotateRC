@@ -20,6 +20,8 @@ void delRotateDir(File& file);
 void rotateGrid(int theta_difference, const std::filesystem::path& grid_rotate_file, const File& file,
                 std::unique_ptr<Eigen::Vector3d>&& point1, std::unique_ptr<Eigen::Vector3d>&& point2);
 
+void makeMaskDir(File& file);
+
 void calMask(Index x_ii_num, const File& file, ReadMode read_mode, MaskMode mask_mode);
 
 void calMask(Index x_ii_num, int theta, const std::filesystem::path& grid_dir, const File& file, ReadMode read_mode,

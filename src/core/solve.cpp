@@ -2,8 +2,18 @@
 
 void scaleGrid(const double scale, File& file) {
   std::filesystem::path grid_scale_dir = gridScaleDir(file.grid_0_dir_);
-  for (const auto& file : file.grid_0_dir_) {
-    GridHandle::solve(scale, file, grid_scale_dir / file.filename());
+  try {
+    if (std::filesystem::exists(grid_scale_dir)) {
+      std::cout << fmt::format("Remove directory: {}.", grid_scale_dir.string()) << std::endl;
+      std::filesystem::remove_all(grid_scale_dir);
+    }
+    std::filesystem::create_directory(grid_scale_dir);
+  } catch (const std::filesystem::filesystem_error& exception) {
+    std::cerr << fmt::format("Explanatory string: {}.", exception.what()) << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
+  for (const auto& file : std::filesystem::directory_iterator(file.grid_0_dir_)) {
+    GridHandle::solve(scale, file, grid_scale_dir / dbg(file.path().filename()));
   }
 }
 
@@ -61,6 +71,19 @@ void rotateGrid(const int theta_difference, const std::filesystem::path& grid_ro
     GridHandle::solve(grid_rotate_file, grid_rotate_output_file, rotation);
   }
   std::cout << std::endl;
+}
+
+void makeMaskDir(File& file) {
+  try {
+    if (std::filesystem::exists(file.output_dir_)) {
+      std::cout << fmt::format("Remove directory: {}.", file.output_dir_.string()) << std::endl;
+      std::filesystem::remove_all(file.output_dir_);
+    }
+    std::filesystem::create_directory(file.output_dir_);
+  } catch (const std::filesystem::filesystem_error& exception) {
+    std::cerr << fmt::format("Explanatory string: {}.", exception.what()) << std::endl;
+    std::exit(EXIT_FAILURE);
+  }
 }
 
 void calMask(const Index x_ii_num, const File& file, const ReadMode read_mode, const MaskMode mask_mode) {

@@ -70,7 +70,7 @@ void rotateGrid(const Rotation& rotation, GridStructure& grid) {
 
 void scaleGrid(const double scale, GridStructure& grid) {
   grid.handle_point_ = std::make_unique<Eigen::Matrix3Xd>(3, grid.number_[0]);
-  (*grid.handle_point_) *= scale;
+  (*grid.handle_point_) = (*grid.point_) * scale;
 }
 
 void outputGrid(const std::filesystem::path& grid_handle_output_file, GridStructure& grid) {
