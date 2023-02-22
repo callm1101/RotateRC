@@ -17,7 +17,7 @@ inline constexpr double kEpsilon = std::numeric_limits<double>::epsilon();
 
 enum class ReadMode : Index { kText, kBinary };
 
-enum class MaskMode : Index { kBool, KIndex };
+enum class MaskMode : Index { kBool, kIndex };
 
 struct Xii {
   Index number_;

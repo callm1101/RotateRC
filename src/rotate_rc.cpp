@@ -1,14 +1,14 @@
 #include "core/solve.h"
 
-void rayCasting(const ReadMode read_mode, File& file) {
+void rayCasting(const ReadMode read_mode, const MaskMode mask_mode, File& file) {
   makeMaskDir(file);
   const auto x_ii_num = static_cast<Index>(
       std::distance(std::filesystem::directory_iterator{file.x_ii_dir_}, std::filesystem::directory_iterator{}));
-  calMask(x_ii_num, file, read_mode, MaskMode::kBool);
+  calMask(x_ii_num, file, read_mode, mask_mode);
   testPoint(x_ii_num, file, read_mode);
 }
 
-void rotateRC(const ReadMode read_mode, File& file) {
+void rotateRC(const ReadMode read_mode, const MaskMode mask_mode, File& file) {
   file.grid_copy_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/body.dat");
   file.grid_rotate_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/lxj1.dat");
   file.grid_rotate_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/lxj2.dat");
@@ -36,7 +36,7 @@ void rotateRC(const ReadMode read_mode, File& file) {
   const auto x_ii_num = static_cast<Index>(
       std::distance(std::filesystem::directory_iterator{file.x_ii_dir_}, std::filesystem::directory_iterator{}));
   for (Index i = 0; const auto& grid_input_dir : file.grid_rotate_output_dir_vec_) {
-    calMask(x_ii_num, static_cast<int>(i) * kThetaDifference, grid_input_dir, file, read_mode, MaskMode::KIndex);
+    calMask(x_ii_num, static_cast<int>(i) * kThetaDifference, grid_input_dir, file, read_mode, mask_mode);
     testPoint(x_ii_num, static_cast<int>(i++) * kThetaDifference, file, read_mode);
   }
   // ---------------------------------------------------------------------------
@@ -60,8 +60,8 @@ int main(int argc, char* argv[]) {
   // constexpr ReadMode kReadMode = ReadMode::kBinary;
 
   // scaleGrid(1e-3, file);
-  rayCasting(kReadMode, file);
-  // rotateRC(kReadMode, file);
+  rayCasting(kReadMode, MaskMode::kBool, file);
+  rotateRC(kReadMode, MaskMode::kIndex, file);
 
   return EXIT_SUCCESS;
 }
