@@ -15,21 +15,23 @@ cd bin
 ./rotate_rc
 ```
 
-5. 通过调整 `src/rotate_rc.cpp` 文件中第68和69行
+5. 通过调整 `src/rotate_rc.cpp` 文件中第 59 和 60 行
 ```cpp
 constexpr ReadMode kReadMode = ReadMode::kText;
 constexpr ReadMode kReadMode = ReadMode::kBinary;
 ```
 可以修改读入的 `X_ii` 文件格式， `ReadMode::kText` 对应文本文件， `ReadMode::kBinary` 对应二进制文件。
 
-6. 通过调整 `src/rotate_rc.cpp` 文件中第71和72行
+6. 通过调整 `src/rotate_rc.cpp` 文件中第 63 和 64 行
 ```cpp
-rayCasting(kReadMode, file);
-rotateRC(kReadMode, file);
+  rayCasting(kReadMode, MaskMode::kBool, file);
+  rotateRC(kReadMode, MaskMode::kIndex, file);
 ```
 可以控制程序是计算螺旋桨（旋转）还是汽车（不旋转）的射线相交。
 
-7. `src/rotate_rc.cpp` 文件中的第 11-13 行
+7. 对于 mask 输出，这里可以通过 `MaskMode::kBool` 和 `MaskMode::kIndex` 来调整，前者代表无论对于多少套网格，均输出网格外为 0 ，网格内为 1 ，后者则会根据网格的命名排序来输出 1, 2, 3 ... 。
+
+8. `src/rotate_rc.cpp` 文件中的第 12-14 行
 ```cpp
 file.grid_copy_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/body.dat");
 file.grid_rotate_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/lxj1.dat");
@@ -37,13 +39,13 @@ file.grid_rotate_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/lxj2.dat")
 ```
 分别表示了 `body.dat` 是不需要旋转的，而 `lxj1.dat` 和 `lxj2.dat` 是需要旋转的。
 
-8. 通过调整 `src/rotate_rc.cpp` 文件中第15行
+9. 通过调整 `src/rotate_rc.cpp` 文件中第 16 行
 ```cpp
 constexpr int kThetaDifference = 1;
 ```
 可以调整旋转的角度间隔，这里设置为 1 度。
 
-9. `src/rotate_rc.cpp` 文件中的第 19-25 行
+10. `src/rotate_rc.cpp` 文件中的第 20-26 行
 ```cpp
 {
 std::unique_ptr<Eigen::Vector3d> point1 = std::make_unique<Eigen::Vector3d>(
