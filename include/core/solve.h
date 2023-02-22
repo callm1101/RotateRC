@@ -24,7 +24,7 @@ void makeMaskDir(File& file);
 
 void calMask(Index x_ii_num, const File& file, ReadMode read_mode, MaskMode mask_mode);
 
-void calMask(Index x_ii_num, int theta, const std::filesystem::path& grid_dir, const File& file, ReadMode read_mode,
+void calMask(Index x_ii_num, int theta, const std::filesystem::path& grid_input_dir, const File& file, ReadMode read_mode,
              MaskMode mask_mode);
 
 void testPoint(Index x_ii_num, const File& file, ReadMode read_mode);

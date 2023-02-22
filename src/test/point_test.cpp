@@ -3,7 +3,7 @@
 namespace PointTest {
 
 void solve(const Index x_ii_num, const std::filesystem::path& x_ii_dir, const std::filesystem::path& test_input_dir,
-           const std::filesystem::path& test_output_file, ReadMode mode) {
+           const std::filesystem::path& test_output_file, ReadMode read_mode) {
   Mask mask;
   mask.out_num_ = std::make_shared<Eigen::VectorXi>(x_ii_num);
   mask.out_num_->setZero();
@@ -11,8 +11,8 @@ void solve(const Index x_ii_num, const std::filesystem::path& x_ii_dir, const st
   for (Index i = 0; i < x_ii_num; i++) {
     Xii x_ii;
     std::filesystem::path test_input_file = testInputFile(i, test_input_dir);
-    std::filesystem::path x_ii_file = xiiFile(i, x_ii_dir, mode);
-    readXii(x_ii_file, x_ii, mode);
+    std::filesystem::path x_ii_file = xiiFile(i, x_ii_dir, read_mode);
+    readXii(x_ii_file, x_ii, read_mode);
     readResult(test_input_file, x_ii);
     calPoints(i, mask, x_ii);
   }

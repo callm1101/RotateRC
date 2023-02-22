@@ -32,9 +32,9 @@ struct Box {
   std::unique_ptr<Eigen::Vector<double, 6>> object_box_;
 };
 
-void solve(const std::filesystem::path& grid_dir, const std::filesystem::path& x_ii_file,
+void solve(const std::filesystem::path& grid_input_dir, const std::filesystem::path& x_ii_file,
            const std::filesystem::path& mask_output_file, ReadMode read_mode, MaskMode mask_mode);
-void readGrid(const std::filesystem::path& grid_dir, std::vector<GridStructure>& grid_vec);
+void readGrid(const std::filesystem::path& grid_input_dir, std::vector<GridStructure>& grid_vec);
 void readXii(const std::filesystem::path& x_ii_file, Xii& x_ii, ReadMode read_mode);
 void calAABB(std::vector<GridStructure>& grid_vec, std::vector<Box>& box_vec);
 TriFlag intersectTri(const Eigen::Vector3d& point, Eigen::Matrix3d& tri_coord);

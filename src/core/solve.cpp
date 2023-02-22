@@ -99,7 +99,7 @@ void calMask(const Index x_ii_num, const File& file, const ReadMode read_mode, c
   std::cout << std::endl;
 }
 
-void calMask(const Index x_ii_num, const int theta, const std::filesystem::path& grid_dir, const File& file,
+void calMask(const Index x_ii_num, const int theta, const std::filesystem::path& grid_input_dir, const File& file,
              const ReadMode read_mode, const MaskMode mask_mode) {
   if (!std::filesystem::exists(file.mask_output_dir_)) {
     std::filesystem::create_directory(file.mask_output_dir_);
@@ -108,7 +108,7 @@ void calMask(const Index x_ii_num, const int theta, const std::filesystem::path&
   for (const auto i : tq::trange(x_ii_num)) {
     std::filesystem::path x_ii_file = xiiFile(i, file.x_ii_dir_, read_mode);
     std::filesystem::path mask_output_file = maskOutputFile(i, theta, file.mask_output_dir_);
-    RayCasting::solve(grid_dir, x_ii_file, mask_output_file, read_mode, mask_mode);
+    RayCasting::solve(grid_input_dir, x_ii_file, mask_output_file, read_mode, mask_mode);
   }
   std::cout << std::endl;
 }

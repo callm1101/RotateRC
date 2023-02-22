@@ -20,7 +20,7 @@ struct Mask {
 };
 
 void solve(Index x_ii_num, const std::filesystem::path& x_ii_dir, const std::filesystem::path& test_input_dir,
-           const std::filesystem::path& test_output_file, ReadMode mode);
+           const std::filesystem::path& test_output_file, ReadMode read_mode);
 void solve(Index x_ii_num, int theta, const std::filesystem::path& x_ii_dir,
            const std::filesystem::path& test_input_dir, const std::filesystem::path& test_output_dir, ReadMode read_mode);
 void readXii(const std::filesystem::path& x_ii_file, Xii& x_ii, ReadMode read_mode);

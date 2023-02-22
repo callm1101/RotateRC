@@ -2,12 +2,12 @@
 
 namespace RayCasting {
 
-void solve(const std::filesystem::path& grid_dir, const std::filesystem::path& x_ii_file,
+void solve(const std::filesystem::path& grid_input_dir, const std::filesystem::path& x_ii_file,
            const std::filesystem::path& mask_output_file, const ReadMode read_mode, const MaskMode mask_mode) {
   std::vector<GridStructure> grid_vec;
   std::vector<Box> box_vec;
   Xii x_ii;
-  readGrid(grid_dir, grid_vec);
+  readGrid(grid_input_dir, grid_vec);
   readXii(x_ii_file, x_ii, read_mode);
   calAABB(grid_vec, box_vec);
 #pragma omp parallel for num_threads(omp_get_thread_num())
@@ -19,7 +19,7 @@ void solve(const std::filesystem::path& grid_dir, const std::filesystem::path& x
         case MaskMode::kBool:
           x_ii.result_->operator()(i) = 1;
           break;
-        case MaskMode::KIndex:
+        case MaskMode::kIndex:
           x_ii.result_->operator()(i) = static_cast<Eigen::VectorXi::Scalar>(j + 1);
           break;
         };
@@ -30,12 +30,12 @@ void solve(const std::filesystem::path& grid_dir, const std::filesystem::path& x
   outputMask(x_ii, mask_output_file);
 }
 
-void readGrid(const std::filesystem::path& grid_dir, std::vector<GridStructure>& grid_vec) {
+void readGrid(const std::filesystem::path& grid_input_dir, std::vector<GridStructure>& grid_vec) {
   std::ifstream fin;
   fin.exceptions(std::ifstream::failbit | std::ifstream::badbit);
   int ignore;
   std::vector<std::filesystem::path> grid_file_vec;
-  std::copy(std::filesystem::directory_iterator{grid_dir}, std::filesystem::directory_iterator{},
+  std::copy(std::filesystem::directory_iterator{grid_input_dir}, std::filesystem::directory_iterator{},
             std::back_inserter(grid_file_vec));
   std::sort(grid_file_vec.begin(), grid_file_vec.end());
   for (const auto& grid_file : grid_file_vec) {
