@@ -19,6 +19,8 @@ enum class ReadMode : Index { kText, kBinary };
 
 enum class MaskMode : Index { kBool, kIndex };
 
+enum class OutputMode : Index { kText, kBinary };
+
 struct Xii {
   Index number_;
   std::unique_ptr<Eigen::Matrix3Xd> point_;

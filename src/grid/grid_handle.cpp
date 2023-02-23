@@ -7,11 +7,11 @@ void solve(const std::filesystem::path& grid_handle_file, const std::filesystem:
   GridStructure grid;
   readGrid(grid_handle_file, grid);
   rotateGrid(rotation, grid);
-  outputGrid(ReadMode::kText, true, grid_handle_output_file, grid);
+  outputGrid(OutputMode::kText, true, grid_handle_output_file, grid);
 }
 
 void solve(const double scale, const std::filesystem::path& grid_handle_file,
-           const std::filesystem::path& grid_handle_output_file, const ReadMode output_mode, const bool flag) {
+           const std::filesystem::path& grid_handle_output_file, const OutputMode output_mode, const bool flag) {
   GridStructure grid;
   readGrid(grid_handle_file, grid);
   scaleGrid(scale, grid);
@@ -93,7 +93,7 @@ void outputGrid(const std::filesystem::path& grid_handle_output_file, GridStruct
   }
 }
 
-void outputGrid(ReadMode output_mode, bool flag, const std::filesystem::path& grid_handle_output_file,
+void outputGrid(OutputMode output_mode, bool flag, const std::filesystem::path& grid_handle_output_file,
                 GridStructure& grid) {
   std::ofstream fout;
   fout.exceptions(std::ofstream::failbit | std::ofstream::badbit);
@@ -102,12 +102,12 @@ void outputGrid(ReadMode output_mode, bool flag, const std::filesystem::path& gr
   fout.precision(15);
   try {
     switch (output_mode) {
-    case ReadMode::kText:
+    case OutputMode::kText:
       fout.open(grid_handle_output_file, std::ios_base::out | std::ios_base::trunc);
       fout << grid.number_[0] << std::endl;
       fout << grid.handle_point_->transpose() << std::endl;
       break;
-    case ReadMode::kBinary:
+    case OutputMode::kBinary:
       fout.open(grid_handle_output_file, std::ios_base::out | std::ios_base::trunc | std::ios_base::binary);
       fout.write(reinterpret_cast<const char*>(&grid.number_), static_cast<std::streamsize>(sizeof(int)));
       fout.write(reinterpret_cast<const char*>(grid.handle_point_->transpose().data()),

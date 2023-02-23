@@ -33,12 +33,12 @@ struct GridStructure {
 void solve(const std::filesystem::path& grid_handle_file, const std::filesystem::path& grid_handle_output_file,
            const Rotation& rotation);
 void solve(double scale, const std::filesystem::path& grid_handle_file,
-           const std::filesystem::path& grid_handle_output_file, ReadMode output_mode = ReadMode::kText, bool flag = true);
+           const std::filesystem::path& grid_handle_output_file, OutputMode output_mode = OutputMode::kText, bool flag = true);
 void readGrid(const std::filesystem::path& grid_handle_file, GridStructure& grid);
 void translateGrid(const Rotation& rotation, GridStructure& grid);
 void rotateGrid(const Rotation& rotation, GridStructure& grid);
 void scaleGrid(double scale, GridStructure& grid);
-void outputGrid(ReadMode output_mode, bool flag, const std::filesystem::path& grid_handle_output_file, GridStructure& grid);
+void outputGrid(OutputMode output_mode, bool flag, const std::filesystem::path& grid_handle_output_file, GridStructure& grid);
 
 }  // namespace GridHandle
 
