@@ -1,8 +1,8 @@
 #ifndef ROTATE_RC_CMAKE_H_
 #define ROTATE_RC_CMAKE_H_
 
-#include <string_view>
+#include <filesystem>
 
-inline constexpr std::string_view kProjectSourceDir{"@PROJECT_SOURCE_DIR@"};
+inline const std::filesystem::path kProjectSourceDir{"@PROJECT_SOURCE_DIR@"};
 
 #endif

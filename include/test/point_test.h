@@ -10,23 +10,18 @@
 #include <iostream>
 #include <memory>
 
-#include "core/basic.h"
+#include "basic/basic.h"
+#include "basic/file.h"
+#include "basic/io.h"
 
 namespace PointTest {
-
-struct Mask {
-  std::shared_ptr<Eigen::VectorXi> out_num_;
-  std::vector<std::unique_ptr<Eigen::Matrix3Xd>> out_points_;
-};
 
 void solve(Index x_ii_num, const std::filesystem::path& x_ii_dir, const std::filesystem::path& test_input_dir,
            const std::filesystem::path& test_output_file, ReadMode read_mode);
 void solve(Index x_ii_num, int theta, const std::filesystem::path& x_ii_dir,
-           const std::filesystem::path& test_input_dir, const std::filesystem::path& test_output_dir, ReadMode read_mode);
-void readXii(const std::filesystem::path& x_ii_file, Xii& x_ii, ReadMode read_mode);
-void readResult(const std::filesystem::path& test_input_file, Xii& x_ii);
-void calPoints(Index i, Mask& mask, Xii& x_ii);
-void outputPlt(Index num, Mask& mask, const std::filesystem::path& test_output_file);
+           const std::filesystem::path& test_input_dir, const std::filesystem::path& test_output_dir,
+           ReadMode read_mode);
+void calPoints(Index i, GridOut& grid_out, Xii& x_ii, Mask& mask);
 
 }  // namespace PointTest
 
