@@ -126,6 +126,20 @@ void calMask(const Index x_ii_num, const int theta, const std::filesystem::path&
   std::cout << std::endl;
 }
 
+void calMask(Index x_ii_num, const ShapeJudge::XZYEllipseCylinder& xzy_ellipse_cylinder, const File& file,
+             ReadMode read_mode) {
+  if (!std::filesystem::exists(file.mask_output_dir_)) {
+    std::filesystem::create_directory(file.mask_output_dir_);
+  }
+  std::cout << "Begin output mask file:" << std::endl;
+  for (const auto i : tq::trange(x_ii_num)) {
+    std::filesystem::path x_ii_file = xiiInputFile(i, file.x_ii_dir_, read_mode);
+    std::filesystem::path mask_output_file = maskOutputFile(i, file.mask_output_dir_);
+    ShapeJudge::solve(xzy_ellipse_cylinder, x_ii_file, mask_output_file, read_mode);
+  }
+  std::cout << std::endl;
+}
+
 void testPoint(const Index x_ii_num, const File& file, const ReadMode read_mode) {
   PointTest::solve(x_ii_num, file.x_ii_dir_, file.test_input_dir_, file.test_output_file_, read_mode);
 }

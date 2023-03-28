@@ -14,7 +14,7 @@ struct Rotation {
 
 void solve(const std::filesystem::path& grid_input_file, const std::filesystem::path& grid_output_file,
            const Rotation& rotation);
-void rotateGrid(const Rotation& rotation, Grid& grid, GridHandl& grid_handle);
+void rotateGrid(const Rotation& rotation, Grid& grid, GridHandle& grid_handle);
 
 }  // namespace GridRotate
 

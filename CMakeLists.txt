@@ -16,7 +16,7 @@ if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(CMAKE_CXX_FLAGS "-O3 -DNDEBUG -march=native")
+    set(CMAKE_CXX_FLAGS "-march=native")
 endif()
 
 set(CMAKE_VERBOSE_MAKEFILE ON CACHE BOOL "cmake --verbose on" FORCE)
@@ -55,5 +55,3 @@ target_include_directories(${PROJECT_NAME} SYSTEM PUBLIC ${DBG_MACRO_DIR})
 target_link_libraries(${PROJECT_NAME} Eigen3::Eigen)
 target_link_libraries(${PROJECT_NAME} fmt::fmt)
 target_link_libraries(${PROJECT_NAME} OpenMP::OpenMP_CXX)
-
-

@@ -11,7 +11,7 @@ void readGrid(const std::filesystem::path& grid_input_file, Grid& grid);
 
 void outputGrid(const std::filesystem::path& grid_output_file, Grid& grid, OutputMode output_mode);
 
-void outputGrid(const std::filesystem::path& grid_output_file, Grid& grid, GridHandl& grid_handle);
+void outputGrid(const std::filesystem::path& grid_output_file, Grid& grid, GridHandle& grid_handle);
 
 }  // namespace GridIO
 

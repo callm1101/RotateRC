@@ -68,7 +68,7 @@ void outputGrid(const std::filesystem::path& grid_output_file, Grid& grid, Outpu
   }
 }
 
-void outputGrid(const std::filesystem::path& grid_output_file, Grid& grid, GridHandl& grid_handle) {
+void outputGrid(const std::filesystem::path& grid_output_file, Grid& grid, GridHandle& grid_handle) {
   std::ofstream fout;
   fout.exceptions(std::ofstream::failbit | std::ofstream::badbit);
   fout.setf(std::ios_base::left, std::ios_base::adjustfield);

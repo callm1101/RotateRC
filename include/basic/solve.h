@@ -6,6 +6,7 @@
 #include "basic/basic.h"
 #include "basic/file.h"
 #include "core/ray_casting.h"
+#include "core/shape_judge.h"
 #include "test/point_test.h"
 #include "utils/grid_rotate.h"
 #include "utils/grid_scale.h"
@@ -28,6 +29,9 @@ void calMask(Index x_ii_num, const File& file, ReadMode read_mode, MaskMode mask
 
 void calMask(Index x_ii_num, int theta, const std::filesystem::path& grid_input_dir, const File& file,
              ReadMode read_mode, MaskMode mask_mode);
+
+void calMask(Index x_ii_num, const ShapeJudge::XZYEllipseCylinder& xzy_ellipse_cylinder, const File& file,
+             ReadMode read_mode);
 
 void testPoint(Index x_ii_num, const File& file, ReadMode read_mode);
 

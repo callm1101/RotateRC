@@ -15,7 +15,7 @@ void solve(const std::filesystem::path& grid_input_dir, const std::filesystem::p
   calAABB(grid_vec, box_vec);
 #pragma omp parallel for num_threads(omp_get_thread_num())
   for (Eigen::Index i = 0; i < static_cast<Eigen::Index>(x_ii.number_); i++) {
-    Eigen::Vector3d point = x_ii.point_->col(i);
+    const Eigen::Vector3d point = x_ii.point_->col(i);
     for (Index j = 0; j < grid_vec.size(); j++) {
       if (castRay(point, grid_vec[j], box_vec[j])) {
         switch (mask_mode) {
@@ -59,8 +59,8 @@ bool castRay(const Eigen::Vector3d& point, Grid& grid, Box& box) {
     return false;
   }
   for (Eigen::Index i = 0; i < static_cast<Eigen::Index>(grid.number_[1]); i++) {
-    if (point(1) >= box.axis_box_->operator()(1, i) && point(1) <= box.axis_box_->operator()(4, i) &&
-        point(2) >= box.axis_box_->operator()(2, i) && point(2) <= box.axis_box_->operator()(5, i)) {
+    if (point.y() >= box.axis_box_->operator()(1, i) && point(1) <= box.axis_box_->operator()(4, i) &&
+        point.z() >= box.axis_box_->operator()(2, i) && point(2) <= box.axis_box_->operator()(5, i)) {
       for (Eigen::Index j = 0; j < 3; j++) {
         tri_coord.col(j) = grid.point_->col(grid.index_->operator()(j, i) - 1);
       }

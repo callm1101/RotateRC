@@ -25,6 +25,8 @@ inline constexpr double kPi = std::numbers::pi;
 
 inline constexpr double kEpsilon = std::numeric_limits<double>::epsilon();
 
+enum class CoreMode : Index {kRayCasting, kShapeJudge};
+
 enum class ReadMode : Index { kText, kBinary };
 
 enum class MaskMode : Index { kBool, kIndex };
@@ -52,7 +54,7 @@ struct GridOut {
   std::vector<std::unique_ptr<Eigen::Matrix3Xd>> out_points_;
 };
 
-struct GridHandl {
+struct GridHandle {
   Index number_;
   std::unique_ptr<Eigen::Matrix3Xd> point_;
 };
@@ -60,8 +62,6 @@ struct GridHandl {
 struct File {
   std::filesystem::path root_{kProjectSourceDir};
   std::filesystem::path grid_0_dir_{kProjectSourceDir / "dat/grid/grid_0"};
-  std::vector<std::filesystem::path> grid_copy_file_vec_;
-  std::vector<std::filesystem::path> grid_rotate_file_vec_;
   std::filesystem::path x_ii_dir_{kProjectSourceDir / "dat/X_ii"};
   std::filesystem::path output_dir_{kProjectSourceDir / "build/out"};
   std::filesystem::path mask_output_dir_{kProjectSourceDir / "build/out/mask"};
@@ -69,6 +69,8 @@ struct File {
   std::filesystem::path test_output_dir_{kProjectSourceDir / "build/out/test"};
   std::filesystem::path test_output_file_{kProjectSourceDir / "build/out/test.plt"};
 
+  std::vector<std::filesystem::path> grid_copy_file_vec_;
+  std::vector<std::filesystem::path> grid_rotate_file_vec_;
   std::vector<std::filesystem::path> grid_rotate_output_dir_vec_;
 };
 
