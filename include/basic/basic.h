@@ -25,7 +25,7 @@ inline constexpr double kPi = std::numbers::pi;
 
 inline constexpr double kEpsilon = std::numeric_limits<double>::epsilon();
 
-enum class CoreMode : Index {kRayCasting, kShapeJudge};
+enum class CoreMode : Index { kRayCasting, kShapeJudge };
 
 enum class ReadMode : Index { kText, kBinary };
 
@@ -59,19 +59,35 @@ struct GridHandle {
   std::unique_ptr<Eigen::Matrix3Xd> point_;
 };
 
-struct File {
-  std::filesystem::path root_{kProjectSourceDir};
-  std::filesystem::path grid_0_dir_{kProjectSourceDir / "dat/grid/grid_0"};
-  std::filesystem::path x_ii_dir_{kProjectSourceDir / "dat/X_ii"};
-  std::filesystem::path output_dir_{kProjectSourceDir / "build/out"};
-  std::filesystem::path mask_output_dir_{kProjectSourceDir / "build/out/mask"};
-  std::filesystem::path test_input_dir_{kProjectSourceDir / "build/out/mask"};
-  std::filesystem::path test_output_dir_{kProjectSourceDir / "build/out/test"};
-  std::filesystem::path test_output_file_{kProjectSourceDir / "build/out/test.plt"};
+class File {
+ public:
+  const std::filesystem::path root_{kProjectSourceDir};
+  const std::filesystem::path grid_0_dir_{kProjectSourceDir / "dat/grid/grid_0"};
+  const std::filesystem::path x_ii_dir_{kProjectSourceDir / "dat/X_ii"};
+  const std::filesystem::path output_dir_{kProjectSourceDir / "build/out"};
+  const std::filesystem::path mask_output_dir_{kProjectSourceDir / "build/out/mask"};
+  const std::filesystem::path test_input_dir_{kProjectSourceDir / "build/out/mask"};
+  const std::filesystem::path test_output_file_{kProjectSourceDir / "build/out/test.plt"};
+
+  File();
+};
+
+class HandleFile : public File {
+ public:
+  const std::filesystem::path grid_handle_dir_{kProjectSourceDir / "dat/grid/grid_handle"};
+
+  HandleFile();
+};
+
+class RotateFile : public File {
+ public:
+  const std::filesystem::path test_output_dir_{kProjectSourceDir / "build/out/test"};
 
   std::vector<std::filesystem::path> grid_copy_file_vec_;
   std::vector<std::filesystem::path> grid_rotate_file_vec_;
   std::vector<std::filesystem::path> grid_rotate_output_dir_vec_;
+
+  RotateFile();
 };
 
 #endif

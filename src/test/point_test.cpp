@@ -11,8 +11,8 @@ void solve(const Index x_ii_num, const std::filesystem::path& x_ii_dir, const st
   for (Index i = 0; i < x_ii_num; i++) {
     Xii x_ii;
     Mask mask;
-    std::filesystem::path x_ii_file = xiiInputFile(i, x_ii_dir, read_mode);
-    std::filesystem::path test_input_file = maskOutputFile(i, test_input_dir);
+    std::filesystem::path x_ii_file = FileName::xiiInputFile(i, x_ii_dir, read_mode);
+    std::filesystem::path test_input_file = FileName::maskOutputFile(i, test_input_dir);
     read(x_ii_file, test_input_file, x_ii, mask, read_mode);
     calPoints(i, grid_out, x_ii, mask);
   }
@@ -30,12 +30,12 @@ void solve(const Index x_ii_num, const int theta, const std::filesystem::path& x
   for (Index i = 0; i < x_ii_num; i++) {
     Xii x_ii;
     Mask mask;
-    std::filesystem::path x_ii_file = xiiInputFile(i, x_ii_dir, read_mode);
-    std::filesystem::path test_input_file = maskOutputFile(i, theta, test_input_dir);
+    std::filesystem::path x_ii_file = FileName::xiiInputFile(i, x_ii_dir, read_mode);
+    std::filesystem::path test_input_file = FileName::maskOutputFile(i, theta, test_input_dir);
     read(x_ii_file, test_input_file, x_ii, mask, read_mode);
     calPoints(i, grid_out, x_ii, mask);
   }
-  std::filesystem::path test_output_file = testOutputFile(theta, test_output_dir);
+  std::filesystem::path test_output_file = FileName::testOutputFile(theta, test_output_dir);
   std::cout << fmt::format("Output file: {}", test_output_file.filename().string()) << std::endl;
   TecIO::outputPlt(x_ii_num, grid_out, test_output_file);
 }

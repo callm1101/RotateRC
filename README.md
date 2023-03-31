@@ -15,37 +15,37 @@ cd bin
 ./rotate_rc
 ```
 
-5. 通过调整 `src/rotate_rc.cpp` 文件中第 8 和 9 行
+5. 通过调整 `src/rotate_rc.cpp` 文件中第 7-8 行
 ```cpp
 constexpr ReadMode kReadMode = ReadMode::kText;
 constexpr ReadMode kReadMode = ReadMode::kBinary;
 ```
 可以修改读入的 `X_ii` 文件格式, `ReadMode::kText` 对应文本文件, `ReadMode::kBinary` 对应二进制文件.
 
-6. 通过调整 `src/rotate_rc.cpp` 文件中第 11 和 12 行
+6. 通过调整 `src/rotate_rc.cpp` 文件中第 10-11 行
 ```cpp
 constexpr OutputMode kOutputMode = OutputMode::kText;
 constexpr OutputMode kOutputMode = OutputMode::kBinary;
 ```
-可以修改输出的网格文件格式, `OutputMode::kText` 对应文本文件, `OutputMode::kBinary` 对应二进制文件,注意这个选项只控制 `sliceGrid(kOutputMode, file)` 函数中的输出.
+可以修改输出的网格文件格式, `OutputMode::kText` 对应文本文件, `OutputMode::kBinary` 对应二进制文件,注意这个选项只控制 `sliceGrid(kOutputMode)` 函数中的输出.
 
-7. 通过调整 `src/rotate_rc.cpp` 文件中第 14-16 行
+7. 通过调整 `src/rotate_rc.cpp` 文件中第 13-15 行
 ```cpp
-rayCasting(kReadMode, MaskMode::kBool, file);
-rotateRC(kReadMode, MaskMode::kIndex, file);
-shapeJudge(kReadMode, MaskMode::kBool, file);
+rayCasting(kReadMode, MaskMode::kBool);
+rotateRC(kReadMode, MaskMode::kIndex);
+shapeJudge(kReadMode, MaskMode::kBool);
 ```
 可以控制程序是计算螺旋桨(旋转)还是汽车(不旋转)的射线相交,或者计算判断椭圆方程.
 
-8. 程序第 18 行
+8. 程序第 17 行
 ```cpp
-scaleGrid(1e-3, file);
+scaleGrid(1e-3);
 ```
 表示将 `grid_0` 文件夹中的网格文件按照第一个参数的尺度进行缩放,输出文件在 `grid_handle` 文件夹中.
 
-9. 程序第 19 行
+9. 程序第 18 行
 ```cpp
-sliceGrid(kOutputMode, file);
+sliceGrid(kOutputMode);
 ```
 表示将 `grid_0` 文件夹中网格文件的 Index 信息剔除,上面说了这里可以调整输出为文本文件或者二进制文件,输出文件同样在 `grid_handle` 文件夹中.
 
@@ -53,21 +53,21 @@ sliceGrid(kOutputMode, file);
 
 11. `src/rotate_rc.cpp` 文件中的第 33-35 行
 ```cpp
-file.grid_copy_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/body.dat");
-file.grid_rotate_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/lxj1.dat");
-file.grid_rotate_file_vec_.emplace_back(file.root_ / "dat/grid/grid_0/lxj2.dat");
+rotate_file.grid_copy_file_vec_.emplace_back(rotate_file.root_ / "dat/grid/grid_0/body.dat");
+rotate_file.grid_rotate_file_vec_.emplace_back(rotate_file.root_ / "dat/grid/grid_0/lxj1.dat");
+rotate_file.grid_rotate_file_vec_.emplace_back(rotate_file.root_ / "dat/grid/grid_0/lxj2.dat");
 ```
 分别表示了 `body.dat` 是不需要旋转的,而 `lxj1.dat` 和 `lxj2.dat` 是需要旋转的.
 
-12. 通过调整 `src/rotate_rc.cpp` 文件中第 15 行函数中第一个参数
+12. 通过调整 `src/rotate_rc.cpp` 文件中第 14 行函数中第一个参数
 ```cpp
 rotateRC(1, kReadMode, MaskMode::kIndex, file);
 ```
 可以调整旋转的角度间隔,这里设置为 1 度.
 
-13. `src/rotate_rc.cpp` 文件中的第 38-42 行
+13. `src/rotate_rc.cpp` 文件中的第 41-43 行
 ```cpp
-rotateGrid(theta_difference, file.grid_rotate_file_vec_[0], file,
+rotateGrid(theta_difference, rotate_file.grid_rotate_file_vec_[0], rotate_file,
             std::make_unique<Eigen::Vector3d>(
                 std::initializer_list<std::initializer_list<double>>{{2.6, -3.5475194, 0.97825646}}),
             std::make_unique<Eigen::Vector3d>(
@@ -75,10 +75,11 @@ rotateGrid(theta_difference, file.grid_rotate_file_vec_[0], file,
 ```
 表示了对于 `lxj1.dat` 文件的旋转,其中用两个旋转点来确定旋转轴,旋转的方向可以由第一个点指向第二个点的右手定则来确定.
 
-13. `src/rotate_rc.cpp` 文件中的第 64 和 65 行
+13. `src/rotate_rc.cpp` 文件中的第 66-68 行
 ```cpp
-ShapeJudge::XZYEllipseCylinder xzy_ellipse_cylinder{
-    std::make_unique<Eigen::Vector3d>(std::initializer_list<std::initializer_list<double>>{{14, 0, 0}}), 1, 0.5, 0.05};
+  ShapeJudge::XZYEllipseCylinder xzy_ellipse_cylinder{
+      std::make_unique<Eigen::Vector3d>(std::initializer_list<std::initializer_list<double>>{{14, 0, 0}}), 1, 0.5,
+      0.05};
 ```
 这里椭圆结构的参数为
 ```cpp

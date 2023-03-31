@@ -1,18 +1,9 @@
 #ifndef ROTATE_RC_FILE_H_
 #define ROTATE_RC_FILE_H_
 
-#include "basic/basic.h"
-
-std::filesystem::path gridRotateDir(int theta, const std::filesystem::path& grid_0_dir);
-
-std::filesystem::path gridHandleDir(const std::filesystem::path& grid_0_dir);
-
-std::filesystem::path xiiInputFile(Index i, const std::filesystem::path& x_ii_dir, ReadMode read_mode);
-
-std::filesystem::path maskOutputFile(Index i, const std::filesystem::path& mask_output_dir);
-
-std::filesystem::path maskOutputFile(Index i, int theta, const std::filesystem::path& mask_output_dir);
-
-std::filesystem::path testOutputFile(int theta, const std::filesystem::path& test_output_dir);
+#include "file/file_copy.h"
+#include "file/file_delete.h"
+#include "file/file_dir.h"
+#include "file/file_name.h"
 
 #endif

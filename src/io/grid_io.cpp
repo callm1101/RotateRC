@@ -2,20 +2,6 @@
 
 namespace GridIO {
 
-void readGrid(const std::filesystem::path& grid_input_dir, std::vector<Grid>& grid_vec) {
-  std::ifstream fin;
-  fin.exceptions(std::ifstream::failbit | std::ifstream::badbit);
-  std::vector<std::filesystem::path> grid_file_vec;
-  std::copy(std::filesystem::directory_iterator{grid_input_dir}, std::filesystem::directory_iterator{},
-            std::back_inserter(grid_file_vec));
-  std::sort(grid_file_vec.begin(), grid_file_vec.end());
-  for (const auto& grid_file : grid_file_vec) {
-    Grid grid;
-    readGrid(grid_file, grid);
-    grid_vec.emplace_back(std::move(grid));
-  }
-}
-
 void readGrid(const std::filesystem::path& grid_input_file, Grid& grid) {
   std::ifstream fin;
   fin.exceptions(std::ifstream::failbit | std::ifstream::badbit);
@@ -37,6 +23,20 @@ void readGrid(const std::filesystem::path& grid_input_file, Grid& grid) {
     std::cerr << fmt::format("Explanatory string: {}.", exception.what()) << std::endl;
     std::cerr << fmt::format("File: {}.", grid_input_file.string()) << std::endl;
     std::exit(EXIT_FAILURE);
+  }
+}
+
+void readGrid(const std::filesystem::path& grid_input_dir, std::vector<Grid>& grid_vec) {
+  std::ifstream fin;
+  fin.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+  std::vector<std::filesystem::path> grid_file_vec;
+  std::copy(std::filesystem::directory_iterator{grid_input_dir}, std::filesystem::directory_iterator{},
+            std::back_inserter(grid_file_vec));
+  std::sort(grid_file_vec.begin(), grid_file_vec.end());
+  for (const auto& grid_file : grid_file_vec) {
+    Grid grid;
+    readGrid(grid_file, grid);
+    grid_vec.emplace_back(std::move(grid));
   }
 }
 

@@ -5,9 +5,9 @@
 
 namespace GridIO {
 
-void readGrid(const std::filesystem::path& grid_input_dir, std::vector<Grid>& grid_vec);
-
 void readGrid(const std::filesystem::path& grid_input_file, Grid& grid);
+
+void readGrid(const std::filesystem::path& grid_input_dir, std::vector<Grid>& grid_vec);
 
 void outputGrid(const std::filesystem::path& grid_output_file, Grid& grid, OutputMode output_mode);
 
