@@ -77,9 +77,9 @@ rotateGrid(theta_difference, rotate_file.grid_rotate_file_vec_[0], rotate_file,
 
 13. `src/rotate_rc.cpp` 文件中的第 66-68 行
 ```cpp
-  ShapeJudge::XZYEllipseCylinder xzy_ellipse_cylinder{
-      std::make_unique<Eigen::Vector3d>(std::initializer_list<std::initializer_list<double>>{{14, 0, 0}}), 1, 0.5,
-      0.05};
+ShapeJudge::XZYEllipseCylinder xzy_ellipse_cylinder{
+    std::make_unique<Eigen::Vector3d>(std::initializer_list<std::initializer_list<double>>{{14, 0, 0}}), 1, 0.5,
+    0.05};
 ```
 这里椭圆结构的参数为
 ```cpp

@@ -18,10 +18,10 @@ struct Box {
 
 void solve(const std::filesystem::path& grid_input_dir, const std::filesystem::path& x_ii_file,
            const std::filesystem::path& mask_output_file, ReadMode read_mode, MaskMode mask_mode);
-void calAABB(std::vector<Grid>& grid_vec, std::vector<Box>& box_vec);
-TriFlag intersectTri(const Eigen::Vector3d& point, Eigen::Matrix3d& tri_coord);
+void calAxisBox(std::vector<Grid>& grid_vec, std::vector<Box>& box_vec);
+TriFlag intersectTri(const Eigen::Vector3d& point, Eigen::Matrix3d& triangle_coord);
 bool castRay(const Eigen::Vector3d& point, Grid& grid, Box& box);
-bool judgeSingularity(Index num, std::vector<Eigen::Index>& tri_index, const Eigen::Vector3d& point, Grid& grid,
+bool judgeSingularity(Index num, std::vector<Eigen::Index>& triangle_list, const Eigen::Vector3d& point, Grid& grid,
                       Box& box);
 bool detectIntersect(Eigen::Index tri1, Eigen::Index tri2, Grid& grid);
 

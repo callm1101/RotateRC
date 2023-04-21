@@ -11,7 +11,7 @@ void outputPlt(const Index num, GridOut& grid_out, const std::filesystem::path& 
   fout.precision(15);
   try {
     fout.open(test_output_file, std::ios_base::out | std::ios_base::trunc);
-    fout << R"(VARIABLES = "X","Y","Z")" << std::endl;
+    fout << R"(VARIABLES = "X", "Y", "Z")" << std::endl;
     fout << fmt::format("ZONE I={} DATAPACKING=POINT", number) << std::endl;
     for (Index i = 0; i < num; i++) {
       if (grid_out.out_num_->operator()(static_cast<Eigen::Index>(i)) > 0) {

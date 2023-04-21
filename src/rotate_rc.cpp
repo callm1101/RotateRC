@@ -10,9 +10,9 @@ int main(int argc, char* argv[]) {
   // constexpr OutputMode kOutputMode = OutputMode::kText;
   constexpr OutputMode kOutputMode = OutputMode::kBinary;
 
-  // rayCasting(kReadMode, MaskMode::kBool);
+  rayCasting(kReadMode, MaskMode::kBool);
   // rotateRC(1, kReadMode, MaskMode::kIndex);
-  shapeJudge(kReadMode);
+  // shapeJudge(kReadMode);
 
   // scaleGrid(1e-3);
   // sliceGrid(kOutputMode);
